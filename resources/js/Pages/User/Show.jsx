@@ -1,19 +1,19 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP } from "@/constants";
+import { USER_STATUS_CLASS_MAP, USER_STATUS_TEXT_MAP } from "@/constants";
 import { Head, router } from "@inertiajs/react";
 import TasksTable from "../Task/TasksTable";
 
-export default function Show({ auth, project, tasks, queryParams }) {
+export default function Show({ auth, user, tasks, queryParams }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    {`Projects "${project.name}"`}
+                    {`Users "${user.name}"`}
                 </h2>
             }
         >
-            <Head title={`Projects "${project.name}"`} />
+            <Head title={`Users "${user.name}"`} />
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -22,37 +22,37 @@ export default function Show({ auth, project, tasks, queryParams }) {
                                 <div className="mt-4 ">
                                     <div>
                                         <label className="font-bold text-lg ">
-                                            Project ID
+                                            User ID
                                         </label>
                                         <p className="font-bold mt-1 ">
-                                            {project.id}
+                                            {user.id}
                                         </p>
                                     </div>
                                     <div className="mt-4 ">
                                         <label className="font-bold text-lg ">
-                                            Project Name
+                                            User Name
                                         </label>
                                         <p className="font-semibold mt-1 ">
-                                            {project.name}
+                                            {user.name}
                                         </p>
                                     </div>
 
                                     <div className="mt-4 ">
                                         <label className="font-bold text-lg ">
-                                            Project Status
+                                            User Status
                                         </label>
                                         <p className="font-semibold mt-1 ">
                                             <span
                                                 className={
                                                     "inline-block py-1 px-2 text-xs font-medium rounded-full text-white text-center mr-2 " +
-                                                    PROJECT_STATUS_CLASS_MAP[
-                                                        project.status
+                                                    USER_STATUS_CLASS_MAP[
+                                                        user.status
                                                     ]
                                                 }
                                             >
                                                 {
-                                                    PROJECT_STATUS_TEXT_MAP[
-                                                        project.status
+                                                    USER_STATUS_TEXT_MAP[
+                                                        user.status
                                                     ]
                                                 }
                                             </span>
@@ -61,28 +61,28 @@ export default function Show({ auth, project, tasks, queryParams }) {
 
                                     <div className="mt-4 ">
                                         <label className="font-bold text-lg ">
-                                            Project Created By
+                                            User Created By
                                         </label>
                                         <p className="font-semibold mt-1 ">
-                                            {project.created_by.name}
+                                            {user.created_by.name}
                                         </p>
                                     </div>
                                 </div>
                                 <div className="mt-4 ">
                                     <div>
                                         <label className="font-bold text-lg ">
-                                            Project Created At
+                                            User Created At
                                         </label>
                                         <p className="font-semibold mt-1 ">
-                                            {project.created_at}
+                                            {user.created_at}
                                         </p>
                                     </div>
                                     <div className="mt-4 ">
                                         <label className="font-bold text-lg ">
-                                            Project Deadline
+                                            User Deadline
                                         </label>
                                         <p className="font-semibold mt-1 ">
-                                            {project.deadline}
+                                            {user.deadline}
                                         </p>
                                     </div>
                                 </div>
@@ -90,9 +90,9 @@ export default function Show({ auth, project, tasks, queryParams }) {
 
                             <div className="mt-6 ">
                                 <h1 className="font-bold text-lg mt-4 mb-2">
-                                    Project Description
+                                    User Description
                                 </h1>
-                                <p>{project.description}</p>
+                                <p>{user.description}</p>
                             </div>
                         </div>
                     </div>
@@ -106,7 +106,7 @@ export default function Show({ auth, project, tasks, queryParams }) {
                             <TasksTable
                                 tasks={tasks}
                                 queryParams={queryParams}
-                                hideProjectColumn={true}
+                                hideUserColumn={true}
                             />
                         </div>
                     </div>

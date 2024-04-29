@@ -1,24 +1,21 @@
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
-import SelectInput from "@/Components/SelectInput";
-import TextAreaInput from "@/Components/TextAreaInput";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function Create({ auth }) {
     const { data, setData, post, errors, reset } = useForm({
-        image: "",
         name: "",
-        status: "",
-        description: "",
-        deadline: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
     });
 
     const onSubmit = (e) => {
         e.preventDefault();
 
-        post(route("project.store"));
+        post(route("user.store"));
     };
 
     return (
@@ -27,12 +24,12 @@ export default function Create({ auth }) {
             header={
                 <div className="flex items-center justify-between">
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Create New Project
+                        Create New User
                     </h2>
                 </div>
             }
         >
-            <Head title="Create New Projects" />
+            <Head title="Create New Users" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -41,13 +38,13 @@ export default function Create({ auth }) {
                             onSubmit={onSubmit}
                             className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
                         >
-                            <div className="mt-4">
+                            <div>
                                 <InputLabel
-                                    htmlFor="project_name"
-                                    value="Project Name"
+                                    htmlFor="user_name"
+                                    value="User Name"
                                 />
                                 <TextInput
-                                    id="project_name"
+                                    id="user_name"
                                     type="text"
                                     name="name"
                                     value={data.name}
@@ -64,70 +61,70 @@ export default function Create({ auth }) {
                             </div>
                             <div className="mt-4">
                                 <InputLabel
-                                    htmlFor="project_description"
-                                    value="Project Description"
-                                />
-                                <TextAreaInput
-                                    id="project_description"
-                                    name="description"
-                                    value={data.description}
-                                    className="mt-1 block w-full"
-                                    onChange={(e) =>
-                                        setData("description", e.target.value)
-                                    }
-                                />
-                                <InputError
-                                    message={errors.description}
-                                    className="mt-2"
-                                />
-                            </div>
-                            <div className="mt-4">
-                                <InputLabel
-                                    htmlFor="project_deadline"
-                                    value="Project Deadline"
+                                    htmlFor="user_email"
+                                    value="User Email"
                                 />
                                 <TextInput
-                                    id="project_deadline"
-                                    type="date"
-                                    name="deadline"
-                                    value={data.deadline}
+                                    id="user_email"
+                                    type="email"
+                                    name="email"
+                                    value={data.email}
                                     className="mt-1 block w-full"
                                     onChange={(e) =>
-                                        setData("deadline", e.target.value)
+                                        setData("email", e.target.value)
                                     }
                                 />
                                 <InputError
-                                    message={errors.deadline}
+                                    message={errors.email}
                                     className="mt-2"
                                 />
                             </div>
                             <div className="mt-4">
                                 <InputLabel
-                                    htmlFor="project_status"
-                                    value="Project Status"
+                                    htmlFor="user_password"
+                                    value="Password"
                                 />
-                                <SelectInput
-                                    id="project_status"
-                                    name="status"
+                                <TextInput
+                                    id="user_password"
+                                    type="password"
+                                    name="password"
+                                    value={data.password}
                                     className="mt-1 block w-full"
                                     onChange={(e) =>
-                                        setData("status", e.target.value)
+                                        setData("password", e.target.value)
                                     }
-                                >
-                                    <option value="">Select Status</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="on_going">Ongoing</option>
-                                    <option value="completed">Completed</option>
-                                </SelectInput>
-
+                                />
                                 <InputError
-                                    message={errors.project_status}
+                                    message={errors.password}
+                                    className="mt-2"
+                                />
+                            </div>
+                            <div className="mt-4">
+                                <InputLabel
+                                    htmlFor="user_password_confirmation"
+                                    value="Confirm Password"
+                                />
+                                <TextInput
+                                    id="user_password_confirmation"
+                                    type="password"
+                                    name="password_confirmation"
+                                    value={data.password_confirmation}
+                                    className="mt-1 block w-full"
+                                    onChange={(e) =>
+                                        setData(
+                                            "password_confirmation",
+                                            e.target.value
+                                        )
+                                    }
+                                />
+                                <InputError
+                                    message={errors.password_confirmation}
                                     className="mt-2"
                                 />
                             </div>
                             <div className="flex items-center justify-end mt-4">
                                 <Link
-                                    href={route("project.index")}
+                                    href={route("user.index")}
                                     className="mr-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                                 >
                                     Cancel

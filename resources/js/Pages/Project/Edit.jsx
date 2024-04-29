@@ -6,19 +6,18 @@ import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
-export default function Create({ auth }) {
-    const { data, setData, post, errors, reset } = useForm({
-        image: "",
-        name: "",
-        status: "",
-        description: "",
-        deadline: "",
+export default function Update({ auth, project }) {
+    const { data, setData, put, errors, reset } = useForm({
+        name: project.name || "",
+        status: project.status || "",
+        description: project.description || "",
+        deadline: project.deadline || "",
     });
 
     const onSubmit = (e) => {
         e.preventDefault();
 
-        post(route("project.store"));
+        put(route("project.update", project.id));
     };
 
     return (
@@ -27,7 +26,7 @@ export default function Create({ auth }) {
             header={
                 <div className="flex items-center justify-between">
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Create New Project
+                        Edit Project "{project.name}"
                     </h2>
                 </div>
             }
@@ -136,7 +135,7 @@ export default function Create({ auth }) {
                                     type="submit"
                                     className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                 >
-                                    Create
+                                    Update
                                 </button>
                             </div>
                         </form>

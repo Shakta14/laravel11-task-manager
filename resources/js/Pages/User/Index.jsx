@@ -1,16 +1,11 @@
 import Pagination from "@/Components/Pagination";
-import SelectInput from "@/Components/SelectInput";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import {
-    PROJECT_STATUS_CLASS_MAP,
-    PROJECT_STATUS_TEXT_MAP,
-} from "@/constants.jsx";
 import { Head, router } from "@inertiajs/react";
 import { Link } from "@inertiajs/react";
 import TableHeading from "@/Components/TableHeading";
 
-export default function Index({ auth, projects, queryParams = null, success }) {
+export default function Index({ auth, users, queryParams = null, success }) {
     queryParams = queryParams || {};
     const searchFieldChanged = (name, value) => {
         if (value) {
@@ -19,7 +14,7 @@ export default function Index({ auth, projects, queryParams = null, success }) {
             delete queryParams[name];
         }
 
-        router.get(route("project.index"), queryParams);
+        router.get(route("user.index"), queryParams);
     };
 
     const onKeyPress = (name, e) => {
@@ -39,14 +34,14 @@ export default function Index({ auth, projects, queryParams = null, success }) {
             queryParams.sort_fields = name;
             queryParams.sort_directions = "asc";
         }
-        router.get(route("project.index"), queryParams);
+        router.get(route("user.index"), queryParams);
     };
 
-    const deleteProject = (project) => {
-        if (!window.confirm("Are you sure you want to delete this project?")) {
+    const deleteUser = (user) => {
+        if (!window.confirm("Are you sure you want to delete this user?")) {
             return;
         }
-        router.delete(route("project.destroy", project.id));
+        router.delete(route("user.destroy", user.id));
     };
 
     return (
@@ -55,18 +50,18 @@ export default function Index({ auth, projects, queryParams = null, success }) {
             header={
                 <div className="flex items-center justify-between">
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Projects
+                        Users
                     </h2>
                     <Link
-                        href={route("project.create")}
+                        href={route("user.create")}
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
                     >
-                        Create New Project
+                        Create New User
                     </Link>
                 </div>
             }
         >
-            <Head title="Projects" />
+            <Head title="Users" />
 
             {success && (
                 <div
@@ -110,7 +105,7 @@ export default function Index({ auth, projects, queryParams = null, success }) {
                                                 Name
                                             </TableHeading>
                                             <TableHeading
-                                                name="status"
+                                                name="email"
                                                 sort_fields={
                                                     queryParams.sort_fields
                                                 }
@@ -119,7 +114,7 @@ export default function Index({ auth, projects, queryParams = null, success }) {
                                                 }
                                                 sortChanged={sortChanged}
                                             >
-                                                Status
+                                                Email
                                             </TableHeading>
                                             <TableHeading
                                                 name="created_at"
@@ -133,24 +128,6 @@ export default function Index({ auth, projects, queryParams = null, success }) {
                                             >
                                                 Created Date
                                             </TableHeading>
-                                            <TableHeading
-                                                name="deadline"
-                                                sort_fields={
-                                                    queryParams.sort_fields
-                                                }
-                                                sort_directions={
-                                                    queryParams.sort_directions
-                                                }
-                                                sortChanged={sortChanged}
-                                            >
-                                                Deadline
-                                            </TableHeading>
-                                            <th
-                                                scope="col"
-                                                className="px-3 py-3 "
-                                            >
-                                                Created By
-                                            </th>
                                             <th
                                                 scope="col"
                                                 className="px-3 py-3 text-right"
@@ -174,7 +151,7 @@ export default function Index({ auth, projects, queryParams = null, success }) {
                                                     defaultValue={
                                                         queryParams.name
                                                     }
-                                                    placeholder="Project Name"
+                                                    placeholder="User Name"
                                                     onBlur={(e) =>
                                                         searchFieldChanged(
                                                             "name",
@@ -190,31 +167,22 @@ export default function Index({ auth, projects, queryParams = null, success }) {
                                                 scope="col"
                                                 className="px-6 py-3"
                                             >
-                                                <SelectInput
+                                                <TextInput
                                                     className="w-full"
                                                     defaultValue={
-                                                        queryParams.status
+                                                        queryParams.email
                                                     }
-                                                    onChange={(e) =>
+                                                    placeholder="User Email"
+                                                    onBlur={(e) =>
                                                         searchFieldChanged(
-                                                            "status",
+                                                            "email",
                                                             e.target.value
                                                         )
                                                     }
-                                                >
-                                                    <option value="">
-                                                        Select Status
-                                                    </option>
-                                                    <option value="pending">
-                                                        Pending
-                                                    </option>
-                                                    <option value="ongoing">
-                                                        Ongoing
-                                                    </option>
-                                                    <option value="completed">
-                                                        Completed
-                                                    </option>
-                                                </SelectInput>
+                                                    onKeyPress={(e) =>
+                                                        onKeyPress("email", e)
+                                                    }
+                                                />
                                             </th>
                                             <th
                                                 scope="col"
@@ -224,66 +192,32 @@ export default function Index({ auth, projects, queryParams = null, success }) {
                                                 scope="col"
                                                 className="px-6 py-3"
                                             ></th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 "
-                                            ></th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3"
-                                            ></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {projects.data.map((project) => (
+                                        {users.data.map((user) => (
                                             <tr
                                                 className="bg-white border-b dark:bg-gray-800
                                             dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                                                key={project.id}
+                                                key={user.id}
                                             >
                                                 <td className="px-3 py-2">
-                                                    {project.id}
+                                                    {user.id}
                                                 </td>
                                                 <th className="px-3 py-2 text-white hover:underline text-nowrap">
-                                                    <Link
-                                                        href={route(
-                                                            "project.show",
-                                                            project.id
-                                                        )}
-                                                    >
-                                                        {project.name}
-                                                    </Link>
+                                                    {user.name}
                                                 </th>
                                                 <td className="px-3 py-2 text-nowrap">
-                                                    <span
-                                                        className={
-                                                            "inline-block py-1 px-2 text-xs font-medium rounded-full text-white text-center mr-2 " +
-                                                            PROJECT_STATUS_CLASS_MAP[
-                                                                project.status
-                                                            ]
-                                                        }
-                                                    >
-                                                        {
-                                                            PROJECT_STATUS_TEXT_MAP[
-                                                                project.status
-                                                            ]
-                                                        }
-                                                    </span>
+                                                    {user.email}
                                                 </td>
                                                 <td className="px-3 py-2 text-nowrap">
-                                                    {project.created_at}
-                                                </td>
-                                                <td className="px-3 py-2 text-nowrap">
-                                                    {project.deadline}
-                                                </td>
-                                                <td className="px-3 py-2 text-center">
-                                                    {project.created_by.name}
+                                                    {user.created_at}
                                                 </td>
                                                 <td className="px-3 py-2 text-nowrap">
                                                     <Link
                                                         href={route(
-                                                            "project.edit",
-                                                            project.id
+                                                            "user.edit",
+                                                            user.id
                                                         )}
                                                         className="font-medium text-blue-500
                                                     dark:text-blue-400 hover:underline mx-1"
@@ -292,9 +226,7 @@ export default function Index({ auth, projects, queryParams = null, success }) {
                                                     </Link>
                                                     <button
                                                         onClick={(e) =>
-                                                            deleteProject(
-                                                                project
-                                                            )
+                                                            deleteUser(user)
                                                         }
                                                         className="font-medium text-red-500
                                                     dark:text-red-400 hover:underline mx-1"
@@ -307,7 +239,7 @@ export default function Index({ auth, projects, queryParams = null, success }) {
                                     </tbody>
                                 </table>
                             </div>
-                            <Pagination links={projects.meta.links} />
+                            <Pagination links={users.meta.links} />
                         </div>
                     </div>
                 </div>
