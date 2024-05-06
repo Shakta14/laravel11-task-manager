@@ -7,6 +7,7 @@ import TableHeading from "@/Components/TableHeading";
 
 export default function TasksTable({
     tasks,
+    success,
     queryParams = null,
     hideProjectColumn = false,
 }) {
@@ -41,23 +42,35 @@ export default function TasksTable({
         router.get(route("task.index"), queryParams);
     };
 
+    const deleteTask = (task) => {
+        if (!window.confirm("Are you sure you want to delete this task?")) {
+            return;
+        }
+        router.delete(route("task.destroy", task.id));
+    };
+
     return (
         <>
+            {success && (
+                <div
+                    className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-3"
+                    role="alert"
+                >
+                    <span className="block sm:inline">{success}</span>
+                </div>
+            )}
             <div className="overflow-auto">
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-s text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr className="text-nowrap">
-                            <TableHeading
+                            {/* <TableHeading
                                 name="id"
                                 sort_fields={queryParams.sort_fields}
                                 sort_directions={queryParams.sort_directions}
                                 sortChanged={sortChanged}
                             >
                                 ID
-                            </TableHeading>
-                            <th scope="col" className="px-3 py-3">
-                                Image
-                            </th>
+                            </TableHeading> */}
                             {!hideProjectColumn && (
                                 <th scope="col" className="px-3 py-3">
                                     Project Name
@@ -95,8 +108,8 @@ export default function TasksTable({
                             >
                                 Deadline
                             </TableHeading>
-                            <th scope="col" className="px-3 py-3 ">
-                                Created By
+                            <th scope="col" className="px-3 py-3 text-center ">
+                                PIC
                             </th>
                             <th scope="col" className="px-3 py-3 text-right">
                                 Action
@@ -105,8 +118,7 @@ export default function TasksTable({
                     </thead>
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr className="text-nowrap">
-                            <th scope="col" className="px-6 py-3"></th>
-                            <th scope="col" className="px-6 py-3"></th>
+                            {/* <th scope="col" className="px-6 py-3"></th> */}
                             {!hideProjectColumn && (
                                 <th scope="col" className="px-6 py-3"></th>
                             )}
@@ -154,19 +166,17 @@ export default function TasksTable({
                                             dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                                 key={task.id}
                             >
-                                <td className="px-3 py-2">{task.id}</td>
-                                <td className="px-3 py-2">
-                                    <img
-                                        src={task.image_path}
-                                        className="w-10 h-10 rounded-full"
-                                    />
-                                </td>
+                                {/* <td className="px-3 py-2">{task.id}</td> */}
                                 {!hideProjectColumn && (
                                     <td className="px-3 py-2">
                                         {task.project.name}
                                     </td>
                                 )}
-                                <td className="px-3 py-2">{task.name}</td>
+                                <td className="px-3 py-2 text-white hover:underline">
+                                    <Link href={route("task.show", task.id)}>
+                                        {task.name}
+                                    </Link>
+                                </td>
                                 <td className="px-3 py-2 text-nowrap">
                                     <span
                                         className={
@@ -184,9 +194,9 @@ export default function TasksTable({
                                     {task.deadline}
                                 </td>
                                 <td className="px-3 py-2 text-center">
-                                    {task.created_by.name}
+                                    {task.assignedUser.name}
                                 </td>
-                                <td className="px-3 py-2">
+                                <td className="px-3 py-2 text-nowrap">
                                     <Link
                                         href={route("task.edit", task.id)}
                                         className="font-medium text-blue-500
@@ -194,13 +204,13 @@ export default function TasksTable({
                                     >
                                         Edit
                                     </Link>
-                                    <Link
-                                        href={route("task.destroy", task.id)}
+                                    <button
+                                        onClick={() => deleteTask(task)}
                                         className="font-medium text-red-500
                                                     dark:text-red-400 hover:underline mx-1"
                                     >
                                         Delete
-                                    </Link>
+                                    </button>
                                 </td>
                             </tr>
                         ))}

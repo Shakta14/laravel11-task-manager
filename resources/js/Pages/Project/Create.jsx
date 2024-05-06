@@ -7,15 +7,14 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function Create({ auth }) {
-    const { data, setData, post, errors, reset } = useForm({
-        image: "",
+    const { data, setData, post, errors } = useForm({
         name: "",
         status: "",
         description: "",
         deadline: "",
     });
 
-    const onSubmit = (e) => {
+    const submit = (e) => {
         e.preventDefault();
 
         post(route("project.store"));
@@ -38,8 +37,8 @@ export default function Create({ auth }) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <form
-                            onSubmit={onSubmit}
                             className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
+                            onSubmit={submit}
                         >
                             <div className="mt-4">
                                 <InputLabel
@@ -52,6 +51,7 @@ export default function Create({ auth }) {
                                     name="name"
                                     value={data.name}
                                     className="mt-1 block w-full"
+                                    autoComplete="name"
                                     isFocused={true}
                                     onChange={(e) =>
                                         setData("name", e.target.value)
@@ -72,6 +72,7 @@ export default function Create({ auth }) {
                                     name="description"
                                     value={data.description}
                                     className="mt-1 block w-full"
+                                    autoComplete="description"
                                     onChange={(e) =>
                                         setData("description", e.target.value)
                                     }
@@ -92,6 +93,7 @@ export default function Create({ auth }) {
                                     name="deadline"
                                     value={data.deadline}
                                     className="mt-1 block w-full"
+                                    autoComplete="deadline"
                                     onChange={(e) =>
                                         setData("deadline", e.target.value)
                                     }
@@ -110,13 +112,14 @@ export default function Create({ auth }) {
                                     id="project_status"
                                     name="status"
                                     className="mt-1 block w-full"
+                                    autoComplete="status"
                                     onChange={(e) =>
                                         setData("status", e.target.value)
                                     }
                                 >
                                     <option value="">Select Status</option>
                                     <option value="pending">Pending</option>
-                                    <option value="on_going">Ongoing</option>
+                                    <option value="ongoing">Ongoing</option>
                                     <option value="completed">Completed</option>
                                 </SelectInput>
 

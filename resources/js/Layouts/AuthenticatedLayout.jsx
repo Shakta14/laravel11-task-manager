@@ -17,7 +17,9 @@ export default function AuthenticatedLayout({ user, header, children }) {
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                                    <h1 className="font-semibold text-xl text-gray-800 dark:text-gray-200">
+                                        Task Manager
+                                    </h1>
                                 </Link>
                             </div>
 
@@ -45,6 +47,12 @@ export default function AuthenticatedLayout({ user, header, children }) {
                                     active={route().current("user.index")}
                                 >
                                     User
+                                </NavLink>
+                                <NavLink
+                                    href={route("task.myTasks")}
+                                    active={route().current("task.myTasks")}
+                                >
+                                    My Tasks
                                 </NavLink>
                             </div>
                         </div>
