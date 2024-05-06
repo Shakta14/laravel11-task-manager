@@ -146,6 +146,31 @@ export default function Show({ auth, success, task }) {
                         </div>
                     </div>
                 </div>
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-4">
+                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div className="p-6 text-gray-900 dark:text-gray-100">
+                            <div className="flex items-center justify-between">
+                                <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200">
+                                    Comments
+                                </h2>
+                                <div>
+                                    <Link
+                                        // href={route(
+                                        //     "task.comment.create",
+                                        //     task.id
+                                        // )}
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                                    >
+                                        Add Comment
+                                    </Link>
+                                </div>
+                            </div>
+                            <div className="mt-4 ">
+                                <h1>COMING SOON</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </AuthenticatedLayout>
     );

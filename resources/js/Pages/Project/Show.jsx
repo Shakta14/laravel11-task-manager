@@ -1,6 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP } from "@/constants";
-import { Head, router } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 import TasksTable from "../Task/TasksTable";
 
 export default function Show({ auth, project, tasks, queryParams, success }) {
@@ -14,21 +14,21 @@ export default function Show({ auth, project, tasks, queryParams, success }) {
             }
         >
             <Head title={`Projects "${project.name}"`} />
-            <div className="py-12">
+            <div className="py-6">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900 dark:text-gray-100">
-                            <div className="grid gap-1 grid-cols-2 mt-2 ">
-                                <div className="mt-4 ">
-                                    <div>
+                        <div className="p-6 text-gray-900 dark:text-gray-100 ">
+                            <div className="grid gap-1 grid-cols-3 text-uppercase text-left ">
+                                <div className="mt-2 ">
+                                    {/* <div>
                                         <label className="font-bold text-lg ">
                                             Project ID
                                         </label>
                                         <p className="font-bold mt-1 ">
                                             {project.id}
                                         </p>
-                                    </div>
-                                    <div className="mt-4 ">
+                                    </div> */}
+                                    <div>
                                         <label className="font-bold text-lg ">
                                             Project Name
                                         </label>
@@ -68,7 +68,7 @@ export default function Show({ auth, project, tasks, queryParams, success }) {
                                         </p>
                                     </div>
                                 </div>
-                                <div className="mt-4 ">
+                                <div className="mt-2 ">
                                     <div>
                                         <label className="font-bold text-lg ">
                                             Project Created At
@@ -86,6 +86,16 @@ export default function Show({ auth, project, tasks, queryParams, success }) {
                                         </p>
                                     </div>
                                 </div>
+                                <div className="mt-2 ">
+                                    <div>
+                                        <h1 className="font-bold text-lg ">
+                                            Progress Project
+                                        </h1>
+                                        <p className="font-semibold mt-2 ">
+                                            Something here
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
 
                             <div className="mt-6 ">
@@ -99,7 +109,7 @@ export default function Show({ auth, project, tasks, queryParams, success }) {
                 </div>
             </div>
 
-            <div className="pb-12">
+            <div className="py-6">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
@@ -109,6 +119,34 @@ export default function Show({ auth, project, tasks, queryParams, success }) {
                                 queryParams={queryParams}
                                 hideProjectColumn={true}
                             />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="pb-12">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-4">
+                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div className="p-6 text-gray-900 dark:text-gray-100">
+                            <div className="flex items-center justify-between">
+                                <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200">
+                                    Comments
+                                </h2>
+                                <div>
+                                    <Link
+                                        // href={route(
+                                        //     "task.comment.create",
+                                        //     task.id
+                                        // )}
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                                    >
+                                        Add Comment
+                                    </Link>
+                                </div>
+                            </div>
+                            <div className="mt-4 ">
+                                <h1>COMING SOON</h1>
+                            </div>
                         </div>
                     </div>
                 </div>
