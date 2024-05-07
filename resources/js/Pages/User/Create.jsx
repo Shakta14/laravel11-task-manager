@@ -1,5 +1,6 @@
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
+import SelectInput from "@/Components/SelectInput";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
@@ -8,6 +9,7 @@ export default function Create({ auth }) {
     const { data, setData, post, errors, reset } = useForm({
         name: "",
         email: "",
+        role: "",
         password: "",
         password_confirmation: "",
     });
@@ -74,6 +76,27 @@ export default function Create({ auth }) {
                                         setData("email", e.target.value)
                                     }
                                 />
+                                <InputError
+                                    message={errors.email}
+                                    className="mt-2"
+                                />
+                            </div>
+                            <div className="mt-4">
+                                <InputLabel htmlFor="user_role" value="Role" />
+                                <SelectInput
+                                    id="user_role"
+                                    type="role"
+                                    name="role"
+                                    value={data.role}
+                                    className="mt-1 block w-full"
+                                    onChange={(e) =>
+                                        setData("role", e.target.value)
+                                    }
+                                >
+                                    <option value="">Select Role</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="user">User</option>
+                                </SelectInput>
                                 <InputError
                                     message={errors.email}
                                     className="mt-2"

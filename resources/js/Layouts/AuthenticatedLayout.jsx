@@ -5,7 +5,7 @@ import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
 
-export default function AuthenticatedLayout({ user, header, children }) {
+export default function AuthenticatedLayout({ user, header, children, auth }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 

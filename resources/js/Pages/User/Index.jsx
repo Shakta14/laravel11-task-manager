@@ -80,7 +80,7 @@ export default function Index({ auth, users, queryParams = null, success }) {
                                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                     <thead className="text-s text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr className="text-nowrap">
-                                            <TableHeading
+                                            {/* <TableHeading
                                                 name="id"
                                                 sort_fields={
                                                     queryParams.sort_fields
@@ -91,7 +91,7 @@ export default function Index({ auth, users, queryParams = null, success }) {
                                                 sortChanged={sortChanged}
                                             >
                                                 ID
-                                            </TableHeading>
+                                            </TableHeading> */}
                                             <TableHeading
                                                 name="name"
                                                 sort_fields={
@@ -128,6 +128,18 @@ export default function Index({ auth, users, queryParams = null, success }) {
                                             >
                                                 Created Date
                                             </TableHeading>
+                                            <TableHeading
+                                                name="role"
+                                                sort_fields={
+                                                    queryParams.sort_fields
+                                                }
+                                                sort_directions={
+                                                    queryParams.sort_directions
+                                                }
+                                                sortChanged={sortChanged}
+                                            >
+                                                Role
+                                            </TableHeading>
                                             <th
                                                 scope="col"
                                                 className="px-3 py-3 text-right"
@@ -138,10 +150,10 @@ export default function Index({ auth, users, queryParams = null, success }) {
                                     </thead>
                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr className="text-nowrap">
-                                            <th
+                                            {/* <th
                                                 scope="col"
                                                 className="px-6 py-3"
-                                            ></th>
+                                            ></th> */}
                                             <th
                                                 scope="col"
                                                 className="px-6 py-3"
@@ -192,6 +204,10 @@ export default function Index({ auth, users, queryParams = null, success }) {
                                                 scope="col"
                                                 className="px-6 py-3"
                                             ></th>
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3"
+                                            ></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -201,9 +217,9 @@ export default function Index({ auth, users, queryParams = null, success }) {
                                             dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                                                 key={user.id}
                                             >
-                                                <td className="px-3 py-2">
+                                                {/* <td className="px-3 py-2">
                                                     {user.id}
-                                                </td>
+                                                </td> */}
                                                 <th className="px-3 py-2 text-white hover:underline text-nowrap">
                                                     {user.name}
                                                 </th>
@@ -212,6 +228,9 @@ export default function Index({ auth, users, queryParams = null, success }) {
                                                 </td>
                                                 <td className="px-3 py-2 text-nowrap">
                                                     {user.created_at}
+                                                </td>
+                                                <td className="px-3 py-2 text-nowrap">
+                                                    {user.role}
                                                 </td>
                                                 <td className="px-3 py-2 text-nowrap">
                                                     <Link

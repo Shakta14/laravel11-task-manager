@@ -105,7 +105,7 @@ class TaskController extends Controller
         $data["updated_by"] = Auth::id();
         $task->update($data);
 
-        return to_route('dashboard.index')
+        return to_route('task.index')
             ->with('success', "Task \"$task->name\" updated successfully");
     }
 
